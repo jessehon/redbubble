@@ -1,6 +1,6 @@
 module Redbubble
   module Views
-    class ModelDetailView
+    class ModelDetailView < BaseDetailView
     end
   end
 end

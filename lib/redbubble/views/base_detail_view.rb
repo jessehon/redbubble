@@ -1,6 +1,6 @@
 module Redbubble
   module Views
-    class IndexView < BaseView
+    class BaseDetailView < BaseView
     end
   end
 end
