@@ -18,7 +18,7 @@ module Redbubble
 
       def self.create_from_xml_node(node)
         Work.new(
-          id: node.css('exif > id').text,
+          id: node.css('id').text,
           model_name: node.css('exif > model').text,
           make_name: node.css('exif > make').text,
           thumbnail_url: node.css('urls > url[type=small]').text
