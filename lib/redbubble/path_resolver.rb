@@ -1,28 +1,28 @@
 module Redbubble
   class PathResolver
-    attr_reader :segmants;
+    attr_reader :segments;
 
-    def initialize(segmants = [], root_path = "")
+    def initialize(segments = [], root_path = "")
       @root_path = root_path
-      @segmants = segmants
+      @segments = segments
     end
 
-    def resolver(segmant)
-      PathResolver.new(@segmants.concat(segmant))
+    def resolver(segment)
+      PathResolver.new(@segments.concat(segment))
     end
 
     def title
-      title = @segmants.fetch(-1).title
+      title = @segments.fetch(-1).title
     end
 
     def path
-      paths = @segmants.map {|s| s.path}
+      paths = @segments.map {|s| s.path}
       File.join(@root_path, paths)
     end
 
     def up(steps)
-      return nil if @segmants.length == 1
-      PathResolver.new(@segmants[0...-steps])
+      return nil if @segments.length == 1
+      PathResolver.new(@segments[0...-steps])
     end
 
     def breadcrumbs

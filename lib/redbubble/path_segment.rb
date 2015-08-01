@@ -1,5 +1,5 @@
 module Redbubble
-  class PathSegmant
+  class PathSegment
     attr_reader :title, :path;
 
     def initialize(title:, path)
@@ -8,15 +8,15 @@ module Redbubble
     end
 
     def create_for_index
-      PathSegmant.new(title: "Redbubble")
+      PathSegment.new(title: "Redbubble")
     end
 
     def create_for_make(make_name:)
-      PathSegmant.new(title: make_name)
+      PathSegment.new(title: make_name)
     end
 
     def create_for_model(model_name:)
-      PathSegmant.new(title: model_name)
+      PathSegment.new(title: model_name)
     end
 
     def slugify(s)

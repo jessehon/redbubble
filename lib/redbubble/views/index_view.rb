@@ -10,8 +10,8 @@ module Redbubble
 
       def item_links
         @makes.each do |make|
-          make_segmant = PathSegmant.create_for_make(make_name: make.name)
-          make_resolver = @resolver.resolver(make_segmant)
+          make_segment = PathSegment.create_for_make(make_name: make.name)
+          make_resolver = @resolver.resolver(make_segment)
           result << Link.new(name: make_resolver.title, href: make_resolver.path)
         end
       end

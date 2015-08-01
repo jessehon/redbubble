@@ -6,7 +6,7 @@ module Redbubble
       @makes = makes
       @template = ERB.new(File.read(template_file))
       @base_resolver = resolver
-      @index_resolver = base_resolver.resolver(PathSegmant.create_for_index)
+      @index_resolver = base_resolver.resolver(PathSegment.create_for_index)
       @writer = writer
     end
 
@@ -27,7 +27,7 @@ module Redbubble
 
     def generate_make_files
       @makes.each do |make|
-        resolver = @index_resolver.resolver(PathSegmant.create_for_make(make_name: make.name))
+        resolver = @index_resolver.resolver(PathSegment.create_for_make(make_name: make.name))
         content = MakeDetailView.new(
             template: @template,
             resolver: resolver,
@@ -39,10 +39,10 @@ module Redbubble
 
     def generate_model_files
       @makes.each do |make|
-        make_resolver = @index_resolver.resolver(PathSegmant.create_for_make(make_name: make.name))
+        make_resolver = @index_resolver.resolver(PathSegment.create_for_make(make_name: make.name))
 
         make.models.each do |model|
-          resolver = make_resolver.resolver(PathSegmant.create_for_model(model_name: model.name))
+          resolver = make_resolver.resolver(PathSegment.create_for_model(model_name: model.name))
           content = ModelDetailView.new(
               template: @template,
               resolver: resolver,
