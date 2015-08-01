@@ -12,8 +12,8 @@ module Redbubble
 
     def generate
       generate_index_file
-      generate_make_file
-      generate_model_file
+      generate_make_files
+      generate_model_files
     end
 
     def generate_index_file
@@ -25,7 +25,7 @@ module Redbubble
       @writer.write(content: content, path: resolver.path)
     end
 
-    def generate_make_file
+    def generate_make_files
       @makes.each do |make|
         resolver = @index_resolver.resolver(PathSegmant.create_for_make(make_name: make.name))
         content = MakeDetailView.new(
@@ -35,14 +35,14 @@ module Redbubble
           ).render
         @writer.write(content: content, path: resolver.path)
 
-    def generate_model_file
+    def generate_model_files
       @makes.each do |make|
         make_resolver = @index_resolver.resolver(PathSegmant.create_for_make(make_name: make.name))
 
         make.models.each do |model|
           resolver = make_resolver.resolver(PathSegmant.create_for_model(model_name: model.name))
           content = ModelDetailView.new(
-              template: @template, 
+              template: @template,
               resolver: resolver,
               model: model
             ).render
