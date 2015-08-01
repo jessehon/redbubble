@@ -11,11 +11,11 @@ module Redbubble
     resolver = PathResolver.new()
     writer = Writer.new()
     HtmlGenerator(
-      makes: makes,
-      template_file: template_file,
-      resolver: resolver,
-      writer: writer
-    ).generate
+        makes: makes,
+        template_file: template_file,
+        resolver: resolver,
+        writer: writer
+      ).generate
   end
 
 end
