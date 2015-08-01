@@ -24,6 +24,14 @@ module Redbubble
         []
       end
 
+      def render
+        title = title
+        templates = thumbnails
+        back_links = back_links
+        item_links = item_links
+        @template.result(binding)
+      end
+
     end
   end
 end
