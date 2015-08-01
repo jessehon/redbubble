@@ -1,31 +1,37 @@
 module Redbubble
   class PathResolver
-    def initialize(root)
-      @root = root
+    attr_reader :segmants;
+
+    def initialize(segmants:)
+      @segmants = segmants
     end
 
-    def relative_make_detail(make_name:)
-      slugify(make_name)
+    def resolver(segmant)
+      PathResolver.new(@segmants.concat(segmant))
     end
 
-    def relative_model_detail(model_name:)
-      slugify(model_name)
+    def title
+      title = @segmants.fetch(-1).title
     end
 
-    def absolute_index
-      @root
+    def path
+      paths = @segmants.map {|s| s.path}
+      File.join(paths)
     end
 
-    def absolute_make_detail(make_name:)
-      File.join(absolute_index, relative_make_detail(make_name))
+    def up(steps)
+      return nil if @segmants.length == 1
+      PathResolver.new(@segmants[0...-steps])
     end
 
-    def absolute_model_detail(make_name:, model_name:)
-      File.join(absolute_make_detail(make_name), relative_model_detail(model_name))
-    end
-
-    def slugify(s)
-      s.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+    def breadcrumbs
+      result = []
+      resolver = self
+      while resolver
+        result << resolver
+        resolver = resolver.up(1)
+      end
+      result.reverse
     end
   end
 end

@@ -8,22 +8,11 @@ module Redbubble
         @make = make
       end
 
-      def title
-        @make.name
-      end
-
-      def path
-        @path_resolver.absolute_make_detail(make_name: @make.name)
-      end
-
-      def back_links
-        [Link.new(name: 'Back to home', href: @path_resolver.absolute_index)]
-      end
-
       def item_links
         @make.models.each do |model|
-          href = @path_resolver.absolute_model_detail(make_name: @make.name, model_name: @model.name)
-          result << Link.new(name: model.name, href: href)
+          model_segmant = PathSegmant.create_for_model(model_name: model.name)
+          model_resolver = @path_resolver.resolver(model_segmant)
+          result << Link.new(name: model_resolver.title, href: model_resolver.path)
         end
       end
 

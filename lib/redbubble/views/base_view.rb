@@ -7,11 +7,17 @@ module Redbubble
       end
 
       def title
-        raise NotImplementedError
+        @path_resolver.title
+      end
+
+      def path
+        @path_resolver.path
       end
 
       def back_links
-        []
+        @path_resolver.breadcrumbs.map do |r|
+          Link.new(name: r.title, href: r.path)
+        end
       end
 
       def thumbnails

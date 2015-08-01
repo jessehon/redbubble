@@ -3,25 +3,16 @@ require 'redbubble/views/base_view'
 module Redbubble
   module Views
     class IndexView < BaseView
-      VIEW_TITLE = "Redbubble"
-
       def initialize(template:, path_resolver:, makes:)
         super(template: template, path_resolver: path_resolver)
         @makes = makes
       end
 
-      def title
-        VIEW_TITLE
-      end
-
-      def path
-        @path_resolver.absolute_index
-      end
-
       def item_links
         @makes.each do |make|
-          href = @path_resolver.absolute_make_detail(make_name: @make.name)
-          result << Link.new(name: make.name, href: href)
+          make_segmant = PathSegmant.create_for_make(make_name: make.name)
+          make_resolver = @path_resolver.resolver(make_segmant)
+          result << Link.new(name: make_resolver.title, href: make_resolver.path)
         end
       end
 
