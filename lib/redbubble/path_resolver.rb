@@ -2,8 +2,8 @@ module Redbubble
   class PathResolver
     attr_reader :segmants;
 
-    def initialize(segmants:)
-      @segmants = segmants
+    def initialize(segmants)
+      @segmants = (defined?(segmants))? segmants : []
     end
 
     def resolver(segmant)
