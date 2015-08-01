@@ -1,4 +1,5 @@
 require 'redbubble/views/base_view'
+require 'redbubble/views/components/image'
 
 module Redbubble
   module Views
@@ -9,9 +10,8 @@ module Redbubble
       end
 
       def thumbnails
-        result = []
-        @model.works.first(10).each do |work|
-          result << Image.new(src: work.url)
+        @model.works.first(10).map do |work|
+          Image.new(src: work.thumbnail_url)
         end
       end
     end

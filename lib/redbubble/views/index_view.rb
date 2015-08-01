@@ -1,4 +1,6 @@
 require 'redbubble/views/base_view'
+require 'redbubble/views/components/image'
+require 'redbubble/views/components/link'
 
 module Redbubble
   module Views
@@ -9,20 +11,17 @@ module Redbubble
       end
 
       def item_links
-        @makes.each do |make|
+        @makes.map do |make|
           make_segment = PathSegment.create_for_make(make_name: make.name)
           make_resolver = @resolver.resolver(make_segment)
-          result << Link.new(name: make_resolver.title, href: make_resolver.path)
+          Link.new(name: make_resolver.title, href: make_resolver.path)
         end
       end
 
       def thumbnails
-        result = []
-        #TODO fix first 10
-        @makes.each do |make|
-          make.works.first(10).each do |work|
-            result << Image.new(src: work.url)
-          end
+        works = (@makes.map { |make| make.works }).flatten
+        works.first(10).map do |work|
+          Image.new(src: work.thumbnail_url)
         end
       end
     end
