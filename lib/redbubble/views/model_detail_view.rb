@@ -3,8 +3,8 @@ require 'redbubble/views/base_view'
 module Redbubble
   module Views
     class ModelDetailView < BaseView
-      def initialize(template:, path_resolver:, model:)
-        super(template: template, path_resolver: path_resolver)
+      def initialize(template:, resolver:, model:)
+        super(template: template, resolver: resolver)
         @model = model
       end
 

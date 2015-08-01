@@ -1,21 +1,21 @@
 module Redbubble
   module Views
     class BaseView
-      def initialize(template:, path_resolver:)
+      def initialize(template:, resolver:)
         @template = template
-        @path_resolver = path_resolver
+        @resolver = resolver
       end
 
       def title
-        @path_resolver.title
+        @resolver.title
       end
 
       def path
-        @path_resolver.path
+        @resolver.path
       end
 
       def back_links
-        @path_resolver.breadcrumbs.map do |r|
+        @resolver.breadcrumbs.map do |r|
           Link.new(name: r.title, href: r.path)
         end
       end
