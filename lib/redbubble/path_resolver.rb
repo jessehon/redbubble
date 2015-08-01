@@ -2,8 +2,9 @@ module Redbubble
   class PathResolver
     attr_reader :segmants;
 
-    def initialize(segmants)
-      @segmants = (defined?(segmants))? segmants : []
+    def initialize(segmants = [], root_path = "")
+      @root_path = root_path
+      @segmants = segmants
     end
 
     def resolver(segmant)
@@ -16,7 +17,7 @@ module Redbubble
 
     def path
       paths = @segmants.map {|s| s.path}
-      File.join(paths)
+      File.join(@root_path, paths)
     end
 
     def up(steps)
