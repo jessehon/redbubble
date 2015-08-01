@@ -34,6 +34,8 @@ module Redbubble
             make: make
           ).render
         @writer.write(content: content, path: resolver.path)
+      end
+    end
 
     def generate_model_files
       @makes.each do |make|
