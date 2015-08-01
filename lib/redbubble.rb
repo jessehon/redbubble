@@ -7,6 +7,7 @@ module Redbubble
     makes = Redbubble::Models::Make.create_from_works(works: works)
 
     base_resolver = PathResolver.new()
+    writer = Writer.new()
   end
 
   def self.generate_index_file(makes:, base_resolver:)
