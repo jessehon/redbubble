@@ -16,10 +16,7 @@ module Redbubble
       end
 
       def works
-        result = {}
-        models.each do |model_works|
-          result.concat!(model_works)
-        end
+        (models.map { |m| m.works }).flatten
       end
 
       def self.create_from_works(works:)
