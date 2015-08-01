@@ -3,7 +3,7 @@ require 'redbubble/models/base_model'
 module Redbubble
   module Models
     class Model < BaseModel
-      attr_reader :name, :works;
+      attr_reader :name, :works, :make_name;
 
       def initialize(name:, make_name:, works:)
         @name = name
