@@ -10,10 +10,6 @@ module Redbubble
         @resolver.title
       end
 
-      def path
-        @resolver.path
-      end
-
       def back_links
         @resolver.breadcrumbs.map do |r|
           Link.new(name: r.title, href: r.path)
