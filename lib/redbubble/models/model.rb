@@ -9,6 +9,17 @@ module Redbubble
         @name = name
         @make_name = make_name
         @works = works
+        super()
+      end
+
+      def valid?
+        super()
+        validators = [
+            Validators::StringValidator.new(field: @name, label: "Model name", min_length: 1),
+            Validators::StringValidator.new(field: @make_name, label: "Make name", min_length: 1),
+            Validators::Validator.new(field: @works, label: "Works", type: Array)
+          ].each {|v| v.valid?}
+        return true
       end
 
       def to_s
