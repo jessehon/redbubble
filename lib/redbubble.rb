@@ -12,7 +12,6 @@ module Redbubble
   def self.run(input_file:, output_path: DEFAULT_OUTPUT_PATH, template_file: DEFAULT_TEMPLATE_FILE)
     raise Exceptions::FileNotFoundError, "Input file #{input_file} could not be found" unless File.exist?(input_file)
     raise Exceptions::FileNotFoundError, "Template file #{template_file} could not be found" unless File.exist?(template_file)
-    raise Exceptions::DirectoryNotFoundError, "Directory #{output_path} could not be found" unless Dir.exist?(output_path)
 
     works = Reader.new(input_file: input_file).read
     makes = Models::Make.create_from_works(works: works)
