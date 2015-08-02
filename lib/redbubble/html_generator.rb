@@ -1,4 +1,5 @@
 require 'erb'
+require 'fileutils'
 require 'redbubble/path_segment'
 require 'redbubble/views/index_view'
 require 'redbubble/views/make_detail_view'
@@ -15,9 +16,8 @@ module Redbubble
     end
 
     def generate
-      generate_index_file
-      generate_make_files
-      generate_model_files
+      FileUtils.rm_rf(@base_resolver.path)
+      [generate_index_file, generate_make_files, generate_model_files].flatten
     end
 
     def generate_index_file
@@ -30,7 +30,7 @@ module Redbubble
     end
 
     def generate_make_files
-      @makes.each do |make|
+      @makes.map do |make|
         resolver = @index_resolver.resolver(PathSegment.create_for_make(make_name: make.name))
         content = Views::MakeDetailView.new(
             template: @template,
@@ -42,10 +42,10 @@ module Redbubble
     end
 
     def generate_model_files
-      @makes.each do |make|
+      files = @makes.map do |make|
         make_resolver = @index_resolver.resolver(PathSegment.create_for_make(make_name: make.name))
 
-        make.models.each do |model|
+        make.models.map do |model|
           resolver = make_resolver.resolver(PathSegment.create_for_model(model_name: model.name))
           content = Views::ModelDetailView.new(
               template: @template,
@@ -55,6 +55,7 @@ module Redbubble
           @writer.write(content: content, path: resolver.path)
         end
       end
+      files.flatten
     end
   end
 end

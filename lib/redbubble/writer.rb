@@ -10,6 +10,7 @@ module Redbubble
 
       file_path = File.join(path, filename)
       File.open(file_path, 'w') { |f| f.write(content) }
+      file_path
     end
 
   end
