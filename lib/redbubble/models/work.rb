@@ -21,8 +21,8 @@ module Redbubble
         super()
         validators = [
             Validators::IntegerValidator.new(field: @id, label: "id", min_value: 0),
-            Validators::StringValidator.new(field: @model_name, label: "Make name", min_length: 1),
-            Validators::StringValidator.new(field: @make_name, label: "Model name", min_length: 1),
+            Validators::StringValidator.new(field: @make_name, label: "Make name", min_length: 1),
+            Validators::StringValidator.new(field: @model_name, label: "Model name", min_length: 1),
             Validators::StringValidator.new(field: @thumbnail_url, label: "Thumbnail url", min_length: 1)
           ].each {|v| v.valid?}
         return true

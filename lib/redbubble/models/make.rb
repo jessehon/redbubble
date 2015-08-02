@@ -27,7 +27,7 @@ module Redbubble
       end
 
       def works
-        (models.map { |m| m.works }).flatten
+        (@models.map { |m| m.works }).flatten
       end
 
       def self.create_from_works(works:)
