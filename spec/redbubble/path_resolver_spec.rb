@@ -10,8 +10,8 @@ describe Redbubble::PathResolver do
       expect(resolver.title).to eq("")
     end
 
-    it 'has root path' do
-      expect(resolver.path).to eq("/")
+    it 'has empty root path' do
+      expect(resolver.path).to eq("")
     end
 
     it 'has no parent' do

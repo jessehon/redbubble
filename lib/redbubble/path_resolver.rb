@@ -8,7 +8,7 @@ module Redbubble
     end
 
     def resolver(segment)
-      PathResolver.new(segments: (@segments + [segment]))
+      PathResolver.new(segments: (@segments + [segment]), root_path: @root_path)
     end
 
     def title
@@ -17,13 +17,13 @@ module Redbubble
     end
 
     def path
-      paths = @segments.map {|s| s.path}
-      File.join(@root_path, paths)
+      paths =[@root_path] + @segments.map {|s| s.path}
+      File.join(paths)
     end
 
     def up(steps)
       return nil if @segments.length <= 1
-      PathResolver.new(segments: @segments[0...-steps])
+      PathResolver.new(segments: @segments[0...-steps], root_path: @root_path)
     end
 
     def breadcrumbs
