@@ -1,8 +1,11 @@
 require 'redbubble/models/base_model'
 require 'redbubble/validators'
+require 'redbubble/exceptions'
 
 module Redbubble
   module Models
+    class WorkMissingModelOrMakeError < Exceptions::ValidationError; end
+
     class Work < BaseModel
       attr_reader :id, :make_name, :model_name, :thumbnail_url;
 
@@ -30,12 +33,19 @@ module Redbubble
       end
 
       def self.create_from_xml_node(node)
-        Work.new(
+        # allow reader to skip if both make and model does not exist
+        attributes = {
           id: node.css('id').text.to_i,
           model_name: node.css('exif > model').text,
           make_name: node.css('exif > make').text,
           thumbnail_url: node.css('urls > url[type=small]').text
-        )
+        }
+
+        if attributes[:model_name].empty? || attributes[:make_name].empty?
+          raise WorkMissingModelOrMakeError, "Work #{attributes[:id]} is missing either model and make"
+        end
+
+        Work.new(attributes)
       end
     end
   end

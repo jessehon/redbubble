@@ -11,8 +11,13 @@ module Redbubble
       doc = parse_xml
       works = []
       works = doc.css("works > work").collect do |node|
-        Redbubble::Models::Work.create_from_xml_node(node)
+        begin
+          Redbubble::Models::Work.create_from_xml_node(node)
+        rescue Redbubble::Models::WorkMissingModelOrMakeError => e
+          puts "Skipping work with after exception #{e}"
+        end
       end
+      works.compact!
     end
 
     def parse_xml
