@@ -1,4 +1,8 @@
 require 'erb'
+require 'redbubble/path_segment'
+require 'redbubble/views/index_view'
+require 'redbubble/views/make_detail_view'
+require 'redbubble/views/model_detail_view'
 
 module Redbubble
   class HtmlGenerator
@@ -17,18 +21,18 @@ module Redbubble
     end
 
     def generate_index_file
-      content = IndexView.new(
+      content = Views::IndexView.new(
           template: @template,
           resolver: @index_resolver,
           makes: @makes
         ).render
-      @writer.write(content: content, path: resolver.path)
+      @writer.write(content: content, path: @index_resolver.path)
     end
 
     def generate_make_files
       @makes.each do |make|
         resolver = @index_resolver.resolver(PathSegment.create_for_make(make_name: make.name))
-        content = MakeDetailView.new(
+        content = Views::MakeDetailView.new(
             template: @template,
             resolver: resolver,
             make: make
@@ -43,7 +47,7 @@ module Redbubble
 
         make.models.each do |model|
           resolver = make_resolver.resolver(PathSegment.create_for_model(model_name: model.name))
-          content = ModelDetailView.new(
+          content = Views::ModelDetailView.new(
               template: @template,
               resolver: resolver,
               model: model
