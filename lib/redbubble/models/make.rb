@@ -38,6 +38,7 @@ module Redbubble
             models: Model.create_from_make_works(make_name: make_name, make_works: make_works)
           )
         end
+        makes
       end
     end
 

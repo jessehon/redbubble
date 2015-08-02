@@ -33,6 +33,7 @@ module Redbubble
         works_by_model.each do |model_name, model_works|
           models[model_name] ||= Model.new(name: model_name, make_name: make_name, works: model_works)
         end
+        models
       end
 
       def self.create_from_makes(makes:)
@@ -41,6 +42,7 @@ module Redbubble
         makes.each do |make_name, make|
           models.merge!(Model.create_from_make_works(make_name: make_name, make_works: make.works))
         end
+        models
       end
     end
   end
