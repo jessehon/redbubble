@@ -72,4 +72,21 @@ describe Redbubble::Models::Make do
       expect{make}.to raise_error(Redbubble::Exceptions::ValidationError)
     end
   end
+
+  describe '#create_from_works' do
+    let(:expected_makes) { FactoryGirl.build_list(:make, 3) }
+    let(:expected_models) do
+      (expected_makes.map { |make| make.models }).flatten
+    end
+    let(:works) do
+      (expected_models.map { |model| model.works }).flatten
+    end
+    let(:makes) { Redbubble::Models::Make.create_from_works(works: works) }
+
+    it 'created makes with models and works' do
+      expected_makes_a = expected_makes.map { |make| make.models.map {|model| model.works} }
+      makes_a = makes.map { |make| make.models.map {|model| model.works} }
+      expect(makes_a).to match_array(expected_makes_a)
+    end
+  end
 end

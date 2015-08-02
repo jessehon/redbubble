@@ -33,16 +33,14 @@ module Redbubble
         works_by_model.each do |model_name, model_works|
           models[model_name] ||= Model.new(name: model_name, make_name: make_name, works: model_works)
         end
-        models
+        models.values
       end
 
       def self.create_from_makes(makes:)
-        models = {}
-
-        makes.each do |make_name, make|
-          models.merge!(Model.create_from_make_works(make_name: make_name, make_works: make.works))
+        models = makes.map do |make|
+          Model.create_from_make_works(make_name: make.name, make_works: make.works)
         end
-        models
+        models.flatten
       end
     end
   end

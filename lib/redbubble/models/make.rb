@@ -4,7 +4,8 @@ require 'redbubble/models/model'
 module Redbubble
   module Models
     class Make < BaseModel
-      attr_reader :name, :models;
+      attr_reader :name;
+      attr_accessor :models;
 
       def initialize(name:, models:)
         @name = name
@@ -38,7 +39,7 @@ module Redbubble
             models: Model.create_from_make_works(make_name: make_name, make_works: make_works)
           )
         end
-        makes
+        makes.values
       end
     end
 
