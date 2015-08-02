@@ -6,7 +6,7 @@ require 'redbubble/path_segment'
 
 describe Redbubble::Views::IndexView do
   let(:makes) { FactoryGirl.build_list(:make, 5) }
-  let(:template) { ERB.new(File.read(Redbubble::TEMPLATE_FILE)) }
+  let(:template) { ERB.new(File.read(Redbubble::DEFAULT_TEMPLATE_FILE)) }
   let(:resolver) { Redbubble::PathResolver.new(segments: [Redbubble::PathSegment.create_for_index]) }
 
   context 'when valid' do

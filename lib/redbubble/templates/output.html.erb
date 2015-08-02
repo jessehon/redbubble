@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <style type="text/css">
+    nav {
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><%= title %></h1>
+
+    <nav>
+      <% back_links.each do |link| %>
+        <a href="<%= link.href %>"><%= link.name %></a>
+      <% end %>
+      <hr />
+      <% item_links.each do |link| %>
+        <a href="<%= link.href %>"><%= link.name %></a>
+      <% end %>
+    </nav>
+  </header>
+
+  <% thumbnails.each do |thumbnail| %>
+    <img src="<%= thumbnail.src %>">
+  <% end %>
+</body>
+</html>
