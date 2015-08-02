@@ -27,10 +27,10 @@ module Redbubble
       end
 
       def render
-        title = title
-        templates = thumbnails
-        back_links = back_links
-        item_links = item_links
+        title = self.title
+        thumbnails = self.thumbnails
+        back_links = self.back_links
+        item_links = self.item_links
         @template.result(binding)
       end
 
