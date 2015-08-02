@@ -10,15 +10,16 @@ task "run" do
   $LOAD_PATH.unshift(File.dirname(__FILE__), "lib")
   require 'redbubble'
 
-  input_file = ENV['input']
+  kwargs = {}
+  
   unless ENV.has_key?('input')
     raise ArgumentError, "missing required argument 'input'"
   end
+  kwargs[:input_file] = ENV['input']
 
-  template_file = ENV['template']
-  unless ENV.has_key?('template')
-    raise ArgumentError, "missing required argument 'template'"
+  if ENV.has_key?('template')
+    kwargs[:template_file] = ENV['template']
   end
 
-  Redbubble.run(input_file: input_file, template_file: template_file)
+  Redbubble.run(kwargs)
 end
