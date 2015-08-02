@@ -2,17 +2,18 @@ module Redbubble
   class PathResolver
     attr_reader :segments;
 
-    def initialize(segments = [], root_path = "")
+    def initialize(segments: [], root_path: "")
       @root_path = root_path
       @segments = segments
     end
 
     def resolver(segment)
-      PathResolver.new(@segments.concat(segment))
+      PathResolver.new(segments: (@segments + [segment]))
     end
 
     def title
-      title = @segments.fetch(-1).title
+      return "" if @segments.empty?
+      @segments.fetch(-1).title
     end
 
     def path
@@ -21,8 +22,8 @@ module Redbubble
     end
 
     def up(steps)
-      return nil if @segments.length == 1
-      PathResolver.new(@segments[0...-steps])
+      return nil if @segments.length <= 1
+      PathResolver.new(segments: @segments[0...-steps])
     end
 
     def breadcrumbs
