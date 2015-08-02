@@ -17,7 +17,7 @@ module Redbubble
           puts "Skipping work with after exception #{e}"
         end
       end
-      works.compact!
+      works.compact
     end
 
     def parse_xml
