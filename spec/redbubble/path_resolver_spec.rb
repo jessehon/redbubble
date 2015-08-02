@@ -19,6 +19,24 @@ describe Redbubble::PathResolver do
     end
   end
 
+  context 'when root path is supplied' do
+    let(:resolver) { Redbubble::PathResolver.new(root_path: "/tmp/test-path") }
+
+    it 'has root path prefixed' do
+      expect(resolver.path).to eq("/tmp/test-path")
+    end
+
+    context 'with 1 extra segment' do
+      let(:extra_segment) { FactoryGirl.build(:path_segment) }
+
+      it 'has combined segment paths' do
+        new_resolver = resolver.resolver(extra_segment)
+        expected = File.join("/tmp/test-path", extra_segment.path)
+        expect(new_resolver.path).to eq(expected)
+      end
+    end
+  end
+
   context 'with 1 segment' do
     let(:segments) { [FactoryGirl.build(:path_segment)] }
     let(:resolver) { Redbubble::PathResolver.new(segments: segments) }
