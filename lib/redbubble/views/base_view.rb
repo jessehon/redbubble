@@ -11,7 +11,9 @@ module Redbubble
       end
 
       def back_links
-        @resolver.breadcrumbs.map do |r|
+        breadcrumbs = @resolver.breadcrumbs
+        breadcrumbs.pop
+        breadcrumbs.map do |r|
           Link.new(name: r.title, href: r.path)
         end
       end
