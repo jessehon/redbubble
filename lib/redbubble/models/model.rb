@@ -35,13 +35,6 @@ module Redbubble
         end
         models.values
       end
-
-      def self.create_from_makes(makes:)
-        models = makes.map do |make|
-          Model.create_from_make_works(make_name: make.name, make_works: make.works)
-        end
-        models.flatten
-      end
     end
   end
 end
