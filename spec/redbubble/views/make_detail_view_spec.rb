@@ -5,16 +5,12 @@ require 'redbubble/path_resolver'
 require 'redbubble/path_segment'
 
 describe Redbubble::Views::IndexView do
-  let(:makes) { FactoryGirl.build_list(:make, 5) }
+  let(:make) { FactoryGirl.build(:make) }
   let(:template) { ERB.new(File.read(Redbubble::DEFAULT_TEMPLATE_FILE)) }
-  let(:resolver) { Redbubble::PathResolver.new(segments: [Redbubble::PathSegment.create_for_index]) }
+  let(:resolver) { Redbubble::PathResolver.new(segments: [Redbubble::PathSegment.create_for_make(make_name: make.name)]) }
 
   context 'when valid' do
-    let(:view) { Redbubble::Views::IndexView.new(template: template, resolver: resolver, makes: makes) }
-
-    it 'has no back links' do
-      expect(view.back_links).to eq([])
-    end
+    let(:view) { Redbubble::Views::MakeDetailView.new(template: template, resolver: resolver, make: make) }
 
     describe '#render' do
       let(:result) { view.render }
@@ -22,6 +18,13 @@ describe Redbubble::Views::IndexView do
       it 'has title html' do
         expected = "<title>#{resolver.title}</title>"
         expect(result).to include(expected)
+      end
+
+      it 'has back links html' do
+        view.back_links.each do |link|
+          expected = "<a href=\"#{link.href}\">#{link.name}</a>"
+          expect(result).to include(expected)
+        end
       end
 
       it 'has item links html' do
