@@ -14,7 +14,7 @@ module Redbubble
         @makes.map do |make|
           make_segment = PathSegment.create_for_make(make_name: make.name)
           make_resolver = @resolver.resolver(make_segment)
-          Views::Components::Link.new(name: make_resolver.title, href: make_resolver.path)
+          Views::Components::Link.new(name: make_resolver.title, href: File.join(make_resolver.path, "index.html"))
         end
       end
 

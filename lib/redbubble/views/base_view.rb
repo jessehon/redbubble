@@ -14,7 +14,7 @@ module Redbubble
         breadcrumbs = @resolver.breadcrumbs
         breadcrumbs.pop
         breadcrumbs.map do |r|
-          Views::Components::Link.new(name: r.title, href: r.path)
+          Views::Components::Link.new(name: r.title, href: File.join(r.path, "index.html"))
         end
       end
 
