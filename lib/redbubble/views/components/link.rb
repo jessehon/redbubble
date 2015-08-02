@@ -1,10 +1,14 @@
 module Redbubble
-  class Link
-    attr_reader :name, :href;
+  module Views
+    module Components
+      class Link
+        attr_reader :name, :href;
 
-    def initialize(name:, href:)
-      @name = name
-      @href = href
+        def initialize(name:, href:)
+          @name = name
+          @href = href
+        end
+      end
     end
   end
 end

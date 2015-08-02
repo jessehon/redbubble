@@ -11,7 +11,7 @@ module Redbubble
 
       def thumbnails
         @model.works.first(10).map do |work|
-          Image.new(src: work.thumbnail_url)
+          Views::Components::Image.new(src: work.thumbnail_url)
         end
       end
     end

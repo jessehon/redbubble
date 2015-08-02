@@ -14,14 +14,14 @@ module Redbubble
         @makes.map do |make|
           make_segment = PathSegment.create_for_make(make_name: make.name)
           make_resolver = @resolver.resolver(make_segment)
-          Link.new(name: make_resolver.title, href: make_resolver.path)
+          Views::Components::Link.new(name: make_resolver.title, href: make_resolver.path)
         end
       end
 
       def thumbnails
         works = (@makes.map { |make| make.works }).flatten
         works.first(10).map do |work|
-          Image.new(src: work.thumbnail_url)
+          Views::Components::Image.new(src: work.thumbnail_url)
         end
       end
     end

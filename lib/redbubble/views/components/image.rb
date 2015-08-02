@@ -1,9 +1,13 @@
 module Redbubble
-  class Image
-    attr_reader :src;
+  module Views
+    module Components
+      class Image
+        attr_reader :src;
 
-    def initialize(src:)
-      @src = src
+        def initialize(src:)
+          @src = src
+        end
+      end
     end
   end
 end
