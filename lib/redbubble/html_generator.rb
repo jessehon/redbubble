@@ -6,7 +6,7 @@ module Redbubble
       @makes = makes
       @template = ERB.new(File.read(template_file))
       @base_resolver = resolver
-      @index_resolver = base_resolver.resolver(PathSegment.create_for_index)
+      @index_resolver = @base_resolver.resolver(PathSegment.create_for_index)
       @writer = writer
     end
 
