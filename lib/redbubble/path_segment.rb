@@ -4,11 +4,15 @@ module Redbubble
 
     def initialize(title:, path: nil)
       @title = title
-      @path = (defined?(path))? path : slugify(title)
+      @path = if path.nil? then slugify(title) else path end
+    end
+
+    def to_s
+      @path
     end
 
     def self.create_for_index
-      PathSegment.new(title: "Redbubble")
+      PathSegment.new(title: "Redbubble", path: "")
     end
 
     def self.create_for_make(make_name:)
